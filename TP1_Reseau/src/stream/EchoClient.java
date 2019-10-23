@@ -46,7 +46,7 @@ public class EchoClient {
   }
 
   public void sendMessage(String line) {
-    output.addMessage(line);
+    //output.addMessage(line);
     socOut.println(line);
   }
 

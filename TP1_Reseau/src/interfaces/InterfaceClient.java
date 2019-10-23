@@ -61,6 +61,9 @@ public class InterfaceClient extends JFrame {
       }
       if (type == 2) {
          clientUDP = new EchoClientUDP();
+         clientUDP.start(usrname);
+         clientUDP.setOutput(this);
+         clientUDP.sendMessage(username + " joined the chat");
       }
    }
 
@@ -147,19 +150,20 @@ public class InterfaceClient extends JFrame {
 
    private void btButtonSendMessageClicked(java.awt.event.MouseEvent evt) {
       if (type == 1) {
-         clientTCP.sendMessage(tfTextMessage.getText());
+         clientTCP.sendMessage(username + " : " + tfTextMessage.getText());
          tfTextMessage.setText("");
       }
       if(type==2)
       {
-      //clientUDP;
+         clientUDP.sendMessage(username + " : " + tfTextMessage.getText());
+         tfTextMessage.setText("");
       }
    }
 
    private void btButtonDisconnectClicked(java.awt.event.MouseEvent evt) {
       if (type == 1) {
-         clientTCP = new EchoClient();
          try {
+            clientTCP.sendMessage(username + " has left");
             clientTCP.close();
          } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -168,7 +172,9 @@ public class InterfaceClient extends JFrame {
       }
       if(type==2)
       {
-      //clientUDP;
+         clientUDP.sendMessage(username + " has left");
+         clientUDP.disconnect();
       }
+      System.exit(1);
    }
 }

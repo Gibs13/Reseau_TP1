@@ -9,11 +9,14 @@ package udp;
 //import java.io.*;
 import java.net.*;
 
+import interfaces.InterfaceClient;
+
 public class EchoClientListenerThread
         extends Thread {
 
     private static Boolean running = true;
     private MulticastSocket multicast;
+    InterfaceClient output = null;
 
     public EchoClientListenerThread(MulticastSocket s) {
         multicast = s;
@@ -38,6 +41,7 @@ public class EchoClientListenerThread
                 multicast.setSoTimeout(1000);
                 multicast.receive(recv);
                 System.out.println(new String(buf2));
+                output.addMessage(new String(buf2));
 
             } catch (SocketTimeoutException e) {
                 
@@ -47,6 +51,11 @@ public class EchoClientListenerThread
             } 
         }
         System.out.println("Disconnected");
+        output.addMessage("Disconnected");
     }
+
+	public void setOuput(InterfaceClient ic) {
+        output = ic;
+	}
 
 }

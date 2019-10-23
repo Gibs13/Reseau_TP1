@@ -12,9 +12,11 @@ import java.net.*;
 
 import javax.swing.JTextField;
 
+import interfaces.InterfaceServer;
+
 public class EchoServer {
 
-	JTextField output;
+	InterfaceServer output;
 
 	/**
 	 * receives a request from client then sends an echo to the client
@@ -29,9 +31,8 @@ public class EchoServer {
 			while (true) {
 				String line = socIn.readLine();
 				System.out.println(line);
-				output.setText(output.getText() + "\n" + line);
-				output.repaint();
-				socOut.println("response");
+				output.addLog("\n" + line);
+				socOut.println("réponse : j'ai bien reçu le message " + line);
 			}
 		} catch (Exception e) {
 			System.err.println("Error in EchoServer:" + e);
@@ -44,7 +45,7 @@ public class EchoServer {
 	 * @param EchoServer port
 	 * 
 	 **/
-	public void start(String port, JTextField serverLogs) {
+	public void start(String port, InterfaceServer serverLogs) {
 		ServerSocket listenSocket;
 		output = serverLogs;
 		try {
@@ -52,9 +53,8 @@ public class EchoServer {
 			System.out.println("server launched");
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
-				System.out.println("connexion from:" + clientSocket.getInetAddress());
-				output.setText(output.getText() + "\n" + "connexion from:" + clientSocket.getInetAddress());
-				output.repaint();
+				System.out.println("connexion from: " + clientSocket.getInetAddress());
+				output.addLog("\n" + "connexion from: " + clientSocket.getInetAddress());
 				doService(clientSocket);
 			}
 		} catch (Exception e) {

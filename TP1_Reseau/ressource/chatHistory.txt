@@ -5,3 +5,5 @@ cv ?
 oue
 et ouat?
 trkl
+username joined the chat
+username has left
