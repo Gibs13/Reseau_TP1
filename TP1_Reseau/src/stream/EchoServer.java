@@ -14,9 +14,10 @@ import javax.swing.JTextField;
 
 import interfaces.InterfaceServer;
 
-public class EchoServer {
+public class EchoServer extends Thread {
 
 	InterfaceServer output;
+	String port;
 
 	/**
 	 * receives a request from client then sends an echo to the client
@@ -45,9 +46,13 @@ public class EchoServer {
 	 * @param EchoServer port
 	 * 
 	 **/
-	public void start(String port, InterfaceServer serverLogs) {
-		ServerSocket listenSocket;
+	public void initial(String port, InterfaceServer serverLogs) {
 		output = serverLogs;
+		this.port = port;
+	}
+
+	public void run() {
+		ServerSocket listenSocket;
 		try {
 			listenSocket = new ServerSocket(Integer.parseInt(port)); // port
 			System.out.println("server launched");

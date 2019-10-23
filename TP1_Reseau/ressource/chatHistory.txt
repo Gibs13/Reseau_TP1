@@ -1,9 +1,3 @@
-26
-bah
-oue ?
-cv ?
-oue
-et ouat?
-trkl
-username joined the chat
-username has left
+Gabriel joined the chat
+Gabriel : bonjour
+Louis joined the chat

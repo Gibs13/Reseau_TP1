@@ -20,7 +20,7 @@ public class ClientThread
 
     private Socket clientSocket;
     private int clientSocketIndex;
-    private static final Boolean historyAsFile = false;
+    private static final Boolean historyAsFile = true;
     private static ArrayList<String> localHistory = new ArrayList<String>();
 
     ClientThread(Socket s) {

@@ -12,6 +12,9 @@ import stream.EchoServer;
 import stream.EchoServerMultiThreaded;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -19,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * @author Administrator
@@ -28,8 +32,7 @@ public class InterfaceServer extends JFrame {
    static InterfaceServer theInterfaceServer;
 
    JPanel pnServerLogs;
-   JLabel lbLabelServerLog;
-   JTextField tfTextLog;
+   JTextArea tfTextLog;
    Integer type;
    EchoServer serverPoint;
    EchoServerMultiThreaded serverThread;
@@ -45,6 +48,7 @@ public class InterfaceServer extends JFrame {
       } catch (UnsupportedLookAndFeelException e) {
       }
       theInterfaceServer = new InterfaceServer();
+      theInterfaceServer.setSize(new Dimension(400, 300));
       theInterfaceServer.setVisible(true);
    }
 
@@ -52,7 +56,8 @@ public class InterfaceServer extends JFrame {
       this.type = type;
       if (type == 1) {
          serverPoint = new EchoServer();
-         serverPoint.start(port, this);
+         serverPoint.initial(port, this);
+         serverPoint.start();
       }
       if (type == 2) {
          serverThread = new EchoServerMultiThreaded();
@@ -62,9 +67,6 @@ public class InterfaceServer extends JFrame {
 
    public void addLog(String log) {
       tfTextLog.setText(tfTextLog.getText() + log);
-      this.invalidate();
-      this.validate();
-      this.repaint();
    }
 
    /**
@@ -77,31 +79,20 @@ public class InterfaceServer extends JFrame {
       GridBagConstraints gbcServerLogs = new GridBagConstraints();
       pnServerLogs.setLayout(gbServerLogs);
 
-      lbLabelServerLog = new JLabel("");
+      tfTextLog = new JTextArea();
+      tfTextLog.setBackground(new Color(240, 240, 240));
+      tfTextLog.setEditable(false);
+      JScrollPane scpAreaReceivedMessages = new JScrollPane(tfTextLog);
       gbcServerLogs.gridx = 1;
-      gbcServerLogs.gridy = 4;
-      gbcServerLogs.gridwidth = 29;
-      gbcServerLogs.gridheight = 18;
+      gbcServerLogs.gridy = 1;
+      gbcServerLogs.gridwidth = 27;
+      gbcServerLogs.gridheight = 15;
       gbcServerLogs.fill = GridBagConstraints.BOTH;
       gbcServerLogs.weightx = 1;
       gbcServerLogs.weighty = 1;
       gbcServerLogs.anchor = GridBagConstraints.NORTH;
-      gbServerLogs.setConstraints(lbLabelServerLog, gbcServerLogs);
-      pnServerLogs.add(lbLabelServerLog);
-
-      tfTextLog = new JTextField();
-      tfTextLog.setBackground(new Color(240, 240, 240));
-      tfTextLog.setEditable(false);
-      gbcServerLogs.gridx = 2;
-      gbcServerLogs.gridy = 1;
-      gbcServerLogs.gridwidth = 14;
-      gbcServerLogs.gridheight = 2;
-      gbcServerLogs.fill = GridBagConstraints.BOTH;
-      gbcServerLogs.weightx = 1;
-      gbcServerLogs.weighty = 0;
-      gbcServerLogs.anchor = GridBagConstraints.NORTH;
-      gbServerLogs.setConstraints(tfTextLog, gbcServerLogs);
-      pnServerLogs.add(tfTextLog);
+      gbServerLogs.setConstraints(scpAreaReceivedMessages, gbcServerLogs);
+      pnServerLogs.add(scpAreaReceivedMessages);
 
       setDefaultCloseOperation(EXIT_ON_CLOSE);
 
