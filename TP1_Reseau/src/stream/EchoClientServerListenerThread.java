@@ -11,11 +11,13 @@ import java.net.*;
 
 import javax.swing.JTextArea;
 
+import interfaces.InterfaceClient;
+
 public class EchoClientServerListenerThread
         extends Thread {
 
     private BufferedReader clientReader;
-    JTextArea output;
+    InterfaceClient output;
 
     EchoClientServerListenerThread(BufferedReader in) {
         clientReader = in;
@@ -36,14 +38,14 @@ public class EchoClientServerListenerThread
                     break;
                 }
                 System.out.println("server : " + line);
-                output.append("\n" + line);
+                output.addMessage(line);
             }
         } catch (Exception e) {
             System.err.println("Error in EchoClientServerListenerThread:" + e);
         }
     }
 
-	public void setOutput(JTextArea taAreaReceivedMessages) {
+	public void setOutput(InterfaceClient taAreaReceivedMessages) {
         output=taAreaReceivedMessages;
 	}
 

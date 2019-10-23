@@ -11,6 +11,8 @@ import java.net.*;
 
 import javax.swing.JTextArea;
 
+import interfaces.InterfaceClient;
+
 public class EchoClient {
 
   /**
@@ -23,7 +25,7 @@ public class EchoClient {
   private static BufferedReader stdIn = null;
   private static BufferedReader socIn = null;
   private static EchoClientServerListenerThread ecslt = null;
-  JTextArea output;
+  InterfaceClient output = null;
 
   public void run(String ip, String port) throws IOException {
 
@@ -44,7 +46,7 @@ public class EchoClient {
   }
 
   public void sendMessage(String line) {
-    output.setText(output.getText() + "\n" + line);
+    output.addMessage(line);
     socOut.println(line);
   }
 
@@ -76,8 +78,8 @@ public class EchoClient {
     }
   }
 
-  public void setOutput(JTextArea taAreaReceivedMessages) {
-    output=taAreaReceivedMessages;
-    ecslt.setOutput(taAreaReceivedMessages);
+  public void setOutput(InterfaceClient taAreaReceivedMessages) {
+    this.output=taAreaReceivedMessages;
+    ecslt.setOutput(output);
   }
 }

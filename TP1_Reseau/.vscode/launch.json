@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - InterfaceClient",
+            "request": "launch",
+            "mainClass": "interfaces.InterfaceClient",
+            "projectName": "TP1_Reseau_1e8829ed"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - InterfaceSelection",
+            "request": "launch",
+            "mainClass": "interfaces.InterfaceSelection",
+            "projectName": "TP1_Reseau_1e8829ed"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - InterfaceServer",
             "request": "launch",
             "mainClass": "interfaces.InterfaceServer",

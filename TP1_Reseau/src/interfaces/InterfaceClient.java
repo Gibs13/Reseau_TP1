@@ -55,13 +55,17 @@ public class InterfaceClient extends JFrame {
       username = usrname;
       if (type == 1) {
          clientTCP = new EchoClient();
-         clientTCP.setOutput(taAreaReceivedMessages);
          clientTCP.connect(ip, port);
+         clientTCP.setOutput(this);
          clientTCP.sendMessage(username + " joined the chat");
       }
       if (type == 2) {
          clientUDP = new EchoClientUDP();
       }
+   }
+
+   public void addMessage(String line){
+      taAreaReceivedMessages.append(line + "\n");
    }
 
    /**
@@ -143,8 +147,6 @@ public class InterfaceClient extends JFrame {
 
    private void btButtonSendMessageClicked(java.awt.event.MouseEvent evt) {
       if (type == 1) {
-         clientTCP = new EchoClient();
-         clientTCP.setOutput(taAreaReceivedMessages);
          clientTCP.sendMessage(tfTextMessage.getText());
          tfTextMessage.setText("");
       }
